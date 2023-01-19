@@ -1,9 +1,35 @@
 version: '3'
 services:
-  app:
-    build: .
-    ports:
-      - "5000:5000"
+  server:
+    container_name: server
+    command: python /app/server.py
+    build:
+      context: ./server
+      dockerfile: Dockerfile
     volumes:
-      - .:/app
-    command: python server.py
+      - ./server:/app
+    networks:
+      - mynetwork
+    ports:
+      - 5000:5000
+    environment:
+    - "PYTHONUNBUFFERED=1"
+
+  client:
+    image: python:3.9
+    container_name: client
+    command: python /app/client.py
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    volumes:
+      - ./client:/app
+    networks:
+      - mynetwork
+    depends_on: 
+      - server
+    ports:
+      - 5001:5001
+
+networks:
+  mynetwork: 
