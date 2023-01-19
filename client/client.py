@@ -1,16 +1,21 @@
+import json
 from socketIO_client import SocketIO, LoggingNamespace
 
 
 def onConnect():
-    print("connect")
+    return True
+    # print("connect")
 
 
 def onAfterConnect(*args):
-    print(args)
+    responses = json.dumps(args)
+    responses = json.loads(responses)
+
+    print(responses[0]["data"])
 
 
 socketIO = SocketIO("localhost", 5000, LoggingNamespace)
-socketIO.emit("connect", onConnect)
+socketIO.emit("request_data")
 
-socketIO.on("after_connect", onAfterConnect)
-socketIO.wait(seconds=1)
+socketIO.on("response_data", onAfterConnect)
+socketIO.wait(seconds=0.5)
