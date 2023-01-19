@@ -12,6 +12,8 @@
       $(document).ready(function () {
         var socket = io.connect("http://localhost:5000");
 
+        socket.emit("request data");
+
         socket.on("response data", function (responses) {
           console.log(responses);
         });
