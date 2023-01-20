@@ -11,11 +11,12 @@ def onAfterConnect(*args):
     responses = json.dumps(args)
     responses = json.loads(responses)
 
-    print(responses[0]["data"])
+    for item in responses[0]["data"]:
+        print(item["First_Name"])
 
 
 socketIO = SocketIO("localhost", 5000, LoggingNamespace)
 socketIO.emit("request_data")
 
 socketIO.on("response_data", onAfterConnect)
-socketIO.wait(seconds=0.5)
+socketIO.wait(seconds=0.1)

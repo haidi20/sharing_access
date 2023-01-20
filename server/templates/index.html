@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>My Webpage</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/socket.io-client@2/dist/socket.io.js"></script>
-  </head>
+</head>
 
-  <body>
+<body>
     <h1>Welcome to my webpage!</h1>
     <script>
-      $(document).ready(function () {
         var socket = io.connect("http://localhost:5000");
+        $(document).ready(function() {
 
-        socket.emit("request data");
+            socket.emit("request_data", function() {
 
-        socket.on("response data", function (responses) {
-          console.log(responses);
+            });
+
+            socket.on("response_data", function(responses) {
+                console.info("response data");
+                console.log(responses);
+            });
         });
-      });
 
-      // other socket.io code here
+        // other socket.io code here
     </script>
-  </body>
+</body>
+
 </html>

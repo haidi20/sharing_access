@@ -7,6 +7,7 @@ from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
+# socketio = SocketIO(app, cors_allowed_origins="http://localhost:5000")
 
 
 @socketio.on("connect")
@@ -22,7 +23,19 @@ def handle_connect():
         # r"Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=\\192.168.1.12\sharing\testing.mdb;"
     )
 
-    df = pd.read_sql("SELECT TOP 10 * FROM campaign_table ct ORDER BY ID DESC", cnxn)
+    query = """
+      SELECT 
+        TOP 10 First_Name, Date_Added 
+      FROM 
+        campaign_table ct 
+      ORDER BY 
+        ID DESC
+    """
+
+    df = pd.read_sql(
+        query,
+        cnxn,
+    )
     data = df.to_json(orient="records")
     data = json.loads(data)
     for i in range(len(data)):
