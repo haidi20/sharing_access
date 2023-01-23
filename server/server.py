@@ -17,9 +17,8 @@ def test_connect():
 
 @socketio.on("request_data")
 def handle_connect():
-    response = []
     cnxn = pyodbc.connect(
-        r"Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=\\TEST-PC\sharing\testing.mdb;"
+        r"Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=\\Timbangan-1\timbang\DatabaseWb.mdb;"
         # r"Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=\\192.168.1.12\sharing\testing.mdb;"
     )
 

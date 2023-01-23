@@ -11,8 +11,7 @@ def onAfterConnect(*args):
     responses = json.dumps(args)
     responses = json.loads(responses)
 
-    for item in responses[0]["data"]:
-        print(item["First_Name"])
+    print(responses)
 
 
 socketIO = SocketIO("localhost", 5000, LoggingNamespace)
