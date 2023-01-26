@@ -1,22 +1,20 @@
-import { readFileSync } from "fs";
-import MDBReader from "mdb-reader";
+import odbc from "odbc";
 
-// const path = "D:/New folder/timbang/DatabaseWb.mdb";
-const path = "//DESKTOP-N0ELQRQ/timbang/DatabaseWb.mdb";
-const query = 'SELECT TOP 10 * FROM TbTransCustomer tc ORDER BY DATEIN DESC';
+const connectionString = "DSN=timbangan;UID=admin;PWD=password;DBQ=D:/timbang/DatabaseWb.mdb;";
 
-const buffer = readFileSync(path);
-const reader = new MDBReader(buffer);
+odbc.connect(connectionString, (error, connection) => {
+    if (error) {
+        console.error(error);
+        return;
+    }
+    // your code here
 
-const table = reader.getTable("TbTransCustomer");
-table.getColumnNames(); // ['id', 'name', 'color']
+    connection.query("SELECT * FROM TbTransCustomer", (error, result) => {
+        if (error) {
+            console.error(error);
+            return;
+        }
 
-console.log(table.getData());
-
-// MDBTools.runMdbTools(['mdb-sql', '-I', path, query], (error, result) => {
-//     if (error) {
-//         console.log(error);
-//     } else {
-//         console.log(result);
-//     }
-// });
+        console.log(result);
+    });
+});

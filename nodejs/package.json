@@ -1,5 +1,8 @@
 {
-  "dependencies": {
-    "mdb-reader": "^2.2.5"
-  }
+    "dependencies": {
+        "@el3um4s/node-mdb": "^0.1.2",
+        "mdb-reader": "^2.2.5",
+        "odbc": "^2.4.6",
+        "serialport": "^10.5.0"
+    }
 }
